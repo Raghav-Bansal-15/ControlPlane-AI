@@ -24,3 +24,10 @@ prototype/logs/*.json
 .vscode/
 *.swp
 *.swo
+
+# Non-prototype submission files (submitted separately via Unstop)
+01_Business_Proposal/
+02_Pitch_Deck/
+output/
+*.pdf
+*.pptx
