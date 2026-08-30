@@ -1,0 +1,32 @@
+# ControlPlane Fact Contract Registry — versioned, authored by policy teams.
+# Compliance changes contracts here, not in code. Loader refuses unversioned files.
+registry_version: "2026-08-22-v1"
+
+contracts:
+  loan_foreclosure:
+    - { fact: loan.status,        system: LOAN_DB,   max_age_days: 1,  critical: true }
+    - { fact: loan.disbursed_on,  system: LOAN_DB,   max_age_days: 1,  critical: true }
+    - { fact: loan.principal,     system: LOAN_DB,   max_age_days: 1,  critical: true }
+    - { fact: contract.prepayment, system: CONTRACTS, max_age_days: null, critical: true }
+    - { fact: policy.fee_rule,    system: POLICY,    max_age_days: 90, critical: true }
+
+  fee_waiver:
+    - { fact: policy.waiver_rule,  system: POLICY,    max_age_days: 90,   critical: true }
+    - { fact: contract.prepayment, system: CONTRACTS, max_age_days: null,  critical: false }
+    - { fact: crm.recent_notes,    system: CRM,       max_age_days: 7,    critical: false }
+
+  wealth_rate_query:
+    - { fact: doc.wealth_apr, system: DOCS, max_age_days: 30, critical: true }
+
+  balance_transfer:
+    - { fact: loan.status,      system: LOAN_DB, max_age_days: 1,  critical: true }
+    - { fact: policy.fee_rule,  system: POLICY,  max_age_days: 90, critical: true }
+    - { fact: offer.bt_eligible, system: OFFERS, max_age_days: 7,  critical: true }
+
+  recommendation:
+    - { fact: policy.suitability, system: POLICY, max_age_days: 180, critical: true }
+
+  branch_info:
+    - { fact: kb.entry, system: KB, max_age_days: 7, critical: true }
+
+  unknown_financial: []
